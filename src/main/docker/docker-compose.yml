@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  job-service:
+    image: ${REPOSITORY}/${IMAGE}:${TAG}
+    depends_on:
+      - job-db
+    networks:
+      - prox
+      - job-db
+
+  job-db:
+    image: postgres:11.3-alpine
+    volumes:
+      - job-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=job-service
+      - POSTGRES_PASSWORD=job-service
+      - POSTGRES_DB=job-db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    networks:
+      - job-db
+
+volumes:
+  job-db-data:
+
+networks:
+  prox:
+    external: true
+  job-db:

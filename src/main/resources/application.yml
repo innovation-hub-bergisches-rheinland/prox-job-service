@@ -1,0 +1,30 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://service-discovery:8761/eureka/
+keycloak:
+  auth-server-url: https://login.archi-lab.io/auth
+  bearer-only: true
+  cors: false
+  principal-attribute: preferred_username
+  realm: archilab
+  resource: prox-job-service
+server:
+  port: 9007
+  forward-headers-strategy: native
+spring:
+  application:
+    name: job-service
+  datasource:
+    password: job-service
+    url: jdbc:postgresql://job-db:5432/job-db
+    username: job-service
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
