@@ -2,6 +2,8 @@ package de.innovationhub.prox.jobservice.application.controller;
 
 import de.innovationhub.prox.jobservice.application.service.JobOfferService;
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.Set;
 import java.util.UUID;
 import javax.validation.Valid;
@@ -43,11 +45,13 @@ public class JobOfferController {
   }
 
   @PostMapping
+  @Operation(summary = "create a new job offer", security = @SecurityRequirement(name = "Bearer"))
   public ResponseEntity<JobOffer> save(@Valid @RequestBody JobOffer jobOffer) {
     return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferService.save(jobOffer));
   }
 
   @PutMapping("{id}")
+  @Operation(summary = "edit an existing job offer", security = @SecurityRequirement(name = "Bearer"))
   public ResponseEntity<JobOffer> update(@PathVariable UUID id, @Valid @RequestBody JobOffer jobOffer) {
     return this.jobOfferService.update(id, jobOffer)
         .map(jobOffer1 -> ResponseEntity.ok(jobOffer1))
@@ -55,6 +59,7 @@ public class JobOfferController {
   }
 
   @DeleteMapping("{id}")
+  @Operation(summary = "delete an existing job offer", security = @SecurityRequirement(name = "Bearer"))
   public void delete(@PathVariable UUID id) {
     this.jobOfferService.deleteById(id);
   }
