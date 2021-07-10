@@ -21,6 +21,12 @@ node {
         image = pom.getArtifactId()
     }
 
+    if (env.BRANCH_NAME == 'master') {
+        currentBuild.result = 'ABORTED'
+        error('Stopping Build as prod deployment is disabled for now')
+        return
+    }
+
     stage('Set dev Variables') {
         if (env.BRANCH_NAME == 'dev') {
             server = 'tcp://10.10.10.42:2376'
