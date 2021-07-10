@@ -1,16 +1,18 @@
 package de.innovationhub.prox.jobservice.domain.job;
 
 import de.innovationhub.prox.jobservice.domain.core.AbstractEntity;
+import de.innovationhub.prox.jobservice.domain.core.Creator;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,44 +38,41 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class JobOffer extends AbstractEntity {
   // Job offer title, for example: Fullstack developer Java
   @Size(min = 10, max = 255)
+  @Column(nullable = false)
   @NotNull
   private String title;
 
-  @Size(min = 50, max = 10000)
+  @Size(min = 50, max = 50000)
   @NotNull
-  @Column(length = 10000)
+  @Column(length = 50000, nullable = false)
   @Lob
   private String description;
 
   // Type of Employment
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @Enumerated
   private Set<JobType> availableTypes = new HashSet<>();
 
   // Entry Levels
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @Enumerated
   private Set<JobEntryLevel> entryLevels = new HashSet<>();
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date earliestStartOfEmployment;
 
   public JobOffer(String title, String description) {
     this.setTitle(title);
     this.setDescription(description);
   }
 
-  public JobOffer(String title, String description, Set<JobType> availableTypes) {
-    this(title, description);
-    this.setAvailableTypes(availableTypes);
-  }
-
-  public JobOffer(String title, String description, Set<JobType> availableTypes, Set<JobEntryLevel> entryLevels) {
-    this(title, description, availableTypes);
-    this.setEntryLevels(entryLevels);
-  }
-
   @Temporal(TemporalType.TIMESTAMP)
   @CreatedDate
+  @Column(updatable = false)
   private Date createdAt = Date.from(Instant.now());
 
+  @Embedded
   @CreatedBy
-  private UUID createdBy;
+  @Column(updatable = false)
+  private Creator createdBy;
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -42,12 +43,12 @@ public class JobOfferController {
   }
 
   @PostMapping
-  public ResponseEntity<JobOffer> save(@Valid JobOffer jobOffer) {
+  public ResponseEntity<JobOffer> save(@Valid @RequestBody JobOffer jobOffer) {
     return ResponseEntity.status(HttpStatus.CREATED).body(jobOfferService.save(jobOffer));
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<JobOffer> update(@PathVariable UUID id, @Valid JobOffer jobOffer) {
+  public ResponseEntity<JobOffer> update(@PathVariable UUID id, @Valid @RequestBody JobOffer jobOffer) {
     return this.jobOfferService.update(id, jobOffer)
         .map(jobOffer1 -> ResponseEntity.ok(jobOffer1))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

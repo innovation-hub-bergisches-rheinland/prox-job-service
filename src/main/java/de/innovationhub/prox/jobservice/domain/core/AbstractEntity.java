@@ -2,6 +2,7 @@ package de.innovationhub.prox.jobservice.domain.core;
 
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 

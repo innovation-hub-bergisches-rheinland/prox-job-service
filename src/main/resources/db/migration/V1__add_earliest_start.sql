@@ -1,0 +1,1 @@
+alter table job_offer add column earliest_start_of_employment timestamp;

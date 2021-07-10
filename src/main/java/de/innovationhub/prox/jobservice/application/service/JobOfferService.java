@@ -34,7 +34,7 @@ public class JobOfferService {
   }
 
   public Optional<JobOffer> update(UUID uuid, JobOffer jobOffer) {
-    return jobOfferRepository.findById(jobOffer.getId())
+    return jobOfferRepository.findById(uuid)
         .map(jobOffer1 -> {
           jobOffer1.setAvailableTypes(jobOffer.getAvailableTypes());
           jobOffer1.setDescription(jobOffer.getDescription());
@@ -50,5 +50,9 @@ public class JobOfferService {
 
   public void delete(JobOffer jobOffer) {
     this.deleteById(jobOffer.getId());
+  }
+
+  private void authorize(JobOffer jobOffer) {
+
   }
 }
