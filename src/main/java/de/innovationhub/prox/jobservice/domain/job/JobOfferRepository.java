@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 public interface JobOfferRepository extends CrudRepository<JobOffer, UUID> {
 
 
-  Set<JobOffer> findByAvailableTypesIn(JobType[] types);
+  Set<JobOffer> findByAvailableTypesIn(Type[] types);
 
-  Set<JobOffer> findByEntryLevelsIn(JobEntryLevel[] jobEntryLevels);
+  Set<JobOffer> findByEntryLevelsIn(EntryLevel[] entryLevels);
 
   @Query("select j.createdBy from JobOffer j where j.id = id")
   Optional<Creator> findCreatorOfJobOffer(UUID id);

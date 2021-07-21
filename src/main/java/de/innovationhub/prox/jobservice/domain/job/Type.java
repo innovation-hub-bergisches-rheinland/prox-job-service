@@ -3,7 +3,7 @@ package de.innovationhub.prox.jobservice.domain.job;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
-public enum JobType {
+public enum Type {
   FULL_TIME, // Vollzeit
   PART_TIME, // Teilzeit
   INTERNSHIP, // Ausbildung / Praktikum
