@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.domain.job;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.innovationhub.prox.jobservice.domain.core.AbstractEntity;
 import de.innovationhub.prox.jobservice.domain.core.Creator;
 import java.time.Instant;
@@ -51,10 +52,12 @@ public class JobOffer extends AbstractEntity {
 
   // Type of Employment
   @OneToMany
+  @JsonIgnore
   private Set<JobOfferType> availableTypes = new HashSet<>();
 
   // Entry Levels
   @OneToMany
+  @JsonIgnore
   private Set<JobOfferEntryLevel> entryLevels = new HashSet<>();
 
   @Temporal(TemporalType.TIMESTAMP)

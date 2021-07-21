@@ -2,10 +2,14 @@ package de.innovationhub.prox.jobservice.application.controller;
 
 import de.innovationhub.prox.jobservice.application.service.JobOfferService;
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
+import de.innovationhub.prox.jobservice.domain.job.JobOfferEntryLevel;
+import de.innovationhub.prox.jobservice.domain.job.JobOfferType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +45,36 @@ public class JobOfferController {
   public ResponseEntity<JobOffer> getById(@PathVariable UUID id) {
     return jobOfferService.findById(id)
         .map(jobOffer -> ResponseEntity.ok(jobOffer))
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  @GetMapping("{id}/entryLevels")
+  public ResponseEntity<List<JobOfferEntryLevel>> getEntryLevels(@PathVariable UUID id) {
+    return jobOfferService.findById(id)
+        .map(jobOffer -> ResponseEntity.ok(jobOffer.getEntryLevels().stream().collect(Collectors.toList())))
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  @PutMapping("{id}/entryLevels")
+  public ResponseEntity<List<JobOfferEntryLevel>> setEntryLevels(@PathVariable UUID id, @RequestBody UUID[] uuids) {
+    return jobOfferService.findById(id)
+        .map(jobOffer -> ResponseEntity.ok(this.jobOfferService.setJobOfferEntryLevels(jobOffer, uuids).stream().collect(
+            Collectors.toList())))
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  @GetMapping("{id}/types")
+  public ResponseEntity<List<JobOfferType>> getTypes(@PathVariable UUID id) {
+    return jobOfferService.findById(id)
+        .map(jobOffer -> ResponseEntity.ok(jobOffer.getAvailableTypes().stream().collect(Collectors.toList())))
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  @PutMapping("{id}/types")
+  public ResponseEntity<List<JobOfferType>> setTypes(@PathVariable UUID id, @RequestBody UUID[] uuids) {
+    return jobOfferService.findById(id)
+        .map(jobOffer -> ResponseEntity.ok(this.jobOfferService.setJobOfferTypes(jobOffer, uuids).stream().collect(
+            Collectors.toList())))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 

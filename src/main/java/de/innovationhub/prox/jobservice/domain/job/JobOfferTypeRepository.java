@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JobOfferTypeRepository extends CrudRepository<JobOfferType, UUID> {
-
+  Iterable<JobOfferType> findAllByIdIn(UUID[] ids);
 }
