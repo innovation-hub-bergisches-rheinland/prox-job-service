@@ -18,4 +18,6 @@ public interface JobOfferRepository extends CrudRepository<JobOffer, UUID> {
 
   @Query("select j.createdBy from JobOffer j where j.id = id")
   Optional<Creator> findCreatorOfJobOffer(UUID id);
+
+  boolean existsById(UUID id);
 }

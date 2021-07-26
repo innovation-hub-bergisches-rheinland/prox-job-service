@@ -63,15 +63,19 @@ public class JobOfferService {
     var types = this.jobOfferTypeRepository.findAllByIdIn(uuids);
     jobOffer.setAvailableTypes(StreamSupport.stream(types.spliterator(), false).collect(Collectors.toSet()));
     return this.save(jobOffer).getAvailableTypes();
-  };
+  }
 
   public Set<JobOfferEntryLevel> setJobOfferEntryLevels(JobOffer jobOffer, UUID[] uuids) {
     var types = this.jobOfferEntryLevelRepository.findAllByIdIn(uuids);
     jobOffer.setEntryLevels(StreamSupport.stream(types.spliterator(), false).collect(Collectors.toSet()));
     return this.save(jobOffer).getEntryLevels();
-  };
+  }
 
   public void delete(JobOffer jobOffer) {
     this.deleteById(jobOffer.getId());
+  }
+
+  public boolean jobOfferExistsById(UUID id) {
+    return this.jobOfferRepository.existsById(id);
   }
 }

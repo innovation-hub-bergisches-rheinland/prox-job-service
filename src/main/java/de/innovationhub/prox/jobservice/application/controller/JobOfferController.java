@@ -95,6 +95,10 @@ public class JobOfferController {
   @DeleteMapping("{id}")
   @Operation(summary = "delete an existing job offer", security = @SecurityRequirement(name = "Bearer"))
   public void delete(@PathVariable UUID id) {
-    this.jobOfferService.deleteById(id);
+    if(this.jobOfferService.jobOfferExistsById(id)) {
+      this.jobOfferService.deleteById(id);
+    } else {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
   }
 }
