@@ -104,8 +104,8 @@ public class JobOfferService {
     }
 
     if(search.length() > 0) {
-      // TODO: also search in description (But ignore markdown syntax)
-      jobOffers = jobOffers.filter(jobOffer -> jobOffer.getTitle().toLowerCase().contains(search.toLowerCase()));
+      jobOffers = jobOffers.filter(
+          jobOffer -> jobOffer.getTitle().toLowerCase().contains(search.toLowerCase()) || jobOffer.getDescription().toLowerCase().contains(search.toLowerCase()));
     }
     return jobOffers.collect(Collectors.toSet());
   }
