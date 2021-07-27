@@ -84,7 +84,7 @@ public class JobOfferService {
 
   @Transactional
   public Set<JobOffer> searchJobOffers(String search, EntryLevel[] entryLevels, Type[] types) {
-    var jobOffers = this.jobOfferRepository.findByAvailableTypesInOrEntryLevelsIn(types, entryLevels);
+    var jobOffers = this.jobOfferRepository.findByAvailableTypes_TypeInOrEntryLevels_EntryLevelIn(types, entryLevels);
     if(search.length() > 0) {
       // TODO: also search in description (But ignore markdown syntax)
       jobOffers = jobOffers.filter(jobOffer -> jobOffer.getTitle().toLowerCase().contains(search.toLowerCase()));
