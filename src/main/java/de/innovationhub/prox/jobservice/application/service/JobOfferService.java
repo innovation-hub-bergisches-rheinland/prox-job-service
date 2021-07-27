@@ -1,12 +1,14 @@
 package de.innovationhub.prox.jobservice.application.service;
 
 import com.google.common.collect.Sets;
+import de.innovationhub.prox.jobservice.domain.job.EntryLevel;
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferEntryLevel;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferEntryLevelRepository;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferRepository;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferType;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferTypeRepository;
+import de.innovationhub.prox.jobservice.domain.job.Type;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -77,5 +79,14 @@ public class JobOfferService {
 
   public boolean jobOfferExistsById(UUID id) {
     return this.jobOfferRepository.existsById(id);
+  }
+
+  public Set<JobOffer> searchJobOffers(String search, EntryLevel[] entryLevels, Type[] types) {
+    var jobOffers = this.jobOfferRepository.findByAvailableTypesInOrEntryLevelsIn(types, entryLevels);
+    if(search.length() > 0) {
+      // TODO: also search in description (But ignore markdown syntax)
+      jobOffers = jobOffers.filter(jobOffer -> jobOffer.getTitle().toLowerCase().contains(search.toLowerCase()));
+    }
+    return jobOffers.collect(Collectors.toSet());
   }
 }

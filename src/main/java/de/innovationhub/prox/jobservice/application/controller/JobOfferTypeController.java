@@ -1,9 +1,11 @@
 package de.innovationhub.prox.jobservice.application.controller;
 
+import de.innovationhub.prox.jobservice.domain.job.EntryLevel;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferEntryLevel;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferEntryLevelRepository;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferType;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferTypeRepository;
+import de.innovationhub.prox.jobservice.domain.job.Type;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

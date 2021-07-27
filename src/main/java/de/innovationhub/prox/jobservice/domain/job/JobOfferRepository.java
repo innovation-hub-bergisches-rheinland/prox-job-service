@@ -4,6 +4,7 @@ import de.innovationhub.prox.jobservice.domain.core.Creator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -16,8 +17,10 @@ public interface JobOfferRepository extends CrudRepository<JobOffer, UUID> {
 
   Set<JobOffer> findByEntryLevelsIn(EntryLevel[] entryLevels);
 
-  @Query("select j.createdBy from JobOffer j where j.id = id")
+  @Query("select j.createdBy from JobOffer j where j.id = ?1")
   Optional<Creator> findCreatorOfJobOffer(UUID id);
+
+  Stream<JobOffer> findByAvailableTypesInOrEntryLevelsIn(Type[] types, EntryLevel[] entryLevels);
 
   boolean existsById(UUID id);
 }

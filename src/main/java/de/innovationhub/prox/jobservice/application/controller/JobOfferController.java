@@ -1,9 +1,11 @@
 package de.innovationhub.prox.jobservice.application.controller;
 
 import de.innovationhub.prox.jobservice.application.service.JobOfferService;
+import de.innovationhub.prox.jobservice.domain.job.EntryLevel;
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferEntryLevel;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferType;
+import de.innovationhub.prox.jobservice.domain.job.Type;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.util.List;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -100,5 +103,15 @@ public class JobOfferController {
     } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
+  }
+
+  @GetMapping("search/findJobOffers")
+  public ResponseEntity<List<JobOffer>> searchJobOffers(
+      @RequestParam(defaultValue = "") String search,
+      @RequestParam(defaultValue = "") EntryLevel[] entryLevels,
+      @RequestParam(defaultValue = "") Type[] types) {
+    return ResponseEntity.ok(this.jobOfferService.searchJobOffers(search, entryLevels, types)
+        .stream()
+        .collect(Collectors.toList()));
   }
 }
