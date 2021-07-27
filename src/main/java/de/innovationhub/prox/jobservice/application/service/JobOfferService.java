@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +82,7 @@ public class JobOfferService {
     return this.jobOfferRepository.existsById(id);
   }
 
+  @Transactional
   public Set<JobOffer> searchJobOffers(String search, EntryLevel[] entryLevels, Type[] types) {
     var jobOffers = this.jobOfferRepository.findByAvailableTypesInOrEntryLevelsIn(types, entryLevels);
     if(search.length() > 0) {
