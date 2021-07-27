@@ -9,6 +9,7 @@ import de.innovationhub.prox.jobservice.domain.job.JobOfferRepository;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferType;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferTypeRepository;
 import de.innovationhub.prox.jobservice.domain.job.Type;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -84,7 +85,24 @@ public class JobOfferService {
 
   @Transactional
   public Set<JobOffer> searchJobOffers(String search, EntryLevel[] entryLevels, Type[] types) {
-    var jobOffers = this.jobOfferRepository.findByAvailableTypes_TypeInOrEntryLevels_EntryLevelIn(types, entryLevels);
+    var jobOffers = StreamSupport.stream(this.jobOfferRepository.findAll().spliterator(), false);
+
+    if(entryLevels.length > 0) {
+      jobOffers = jobOffers.filter(
+          jobOffer -> jobOffer.getEntryLevels()
+              .stream()
+              .anyMatch(p1 ->
+                  Arrays.stream(entryLevels).anyMatch(p2 -> p2.equals(p1.getEntryLevel()))));
+    }
+
+    if(types.length > 0) {
+      jobOffers = jobOffers.filter(
+          jobOffer -> jobOffer.getAvailableTypes()
+              .stream()
+              .anyMatch(p1 ->
+                  Arrays.stream(types).anyMatch(p2 -> p2.equals(p1.getType()))));
+    }
+
     if(search.length() > 0) {
       // TODO: also search in description (But ignore markdown syntax)
       jobOffers = jobOffers.filter(jobOffer -> jobOffer.getTitle().toLowerCase().contains(search.toLowerCase()));

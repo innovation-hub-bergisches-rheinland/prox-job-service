@@ -20,7 +20,5 @@ public interface JobOfferRepository extends CrudRepository<JobOffer, UUID> {
   @Query("select j.createdBy from JobOffer j where j.id = ?1")
   Optional<Creator> findCreatorOfJobOffer(UUID id);
 
-  Stream<JobOffer> findByAvailableTypes_TypeInOrEntryLevels_EntryLevelIn(Type[] types, EntryLevel[] entryLevels);
-
   boolean existsById(UUID id);
 }
