@@ -15,6 +15,7 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -51,12 +52,12 @@ public class JobOffer extends AbstractEntity {
   private String description;
 
   // Type of Employment
-  @OneToMany
+  @ManyToMany
   @JsonIgnore
   private Set<JobOfferType> availableTypes = new HashSet<>();
 
   // Entry Levels
-  @OneToMany
+  @ManyToMany
   @JsonIgnore
   private Set<JobOfferEntryLevel> entryLevels = new HashSet<>();
 
