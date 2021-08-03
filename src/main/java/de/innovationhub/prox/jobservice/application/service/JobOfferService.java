@@ -83,6 +83,7 @@ public class JobOfferService {
     return this.jobOfferRepository.existsById(id);
   }
 
+  @Transactional
   public Set<JobOffer> findAllJobsByCreator(UUID creatorId) {
     return this.jobOfferRepository.findAllJobsByCreator(creatorId);
   }
