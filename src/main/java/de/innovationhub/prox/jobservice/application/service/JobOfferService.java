@@ -83,6 +83,10 @@ public class JobOfferService {
     return this.jobOfferRepository.existsById(id);
   }
 
+  public Set<JobOffer> findAllJobsByCreator(UUID creatorId) {
+    return this.jobOfferRepository.findAllJobsByCreator(creatorId);
+  }
+
   @Transactional
   public Set<JobOffer> searchJobOffers(String search, EntryLevel[] entryLevels, Type[] types) {
     var jobOffers = StreamSupport.stream(this.jobOfferRepository.findAll().spliterator(), false);

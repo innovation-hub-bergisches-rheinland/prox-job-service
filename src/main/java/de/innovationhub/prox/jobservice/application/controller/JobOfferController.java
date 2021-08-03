@@ -114,4 +114,12 @@ public class JobOfferController {
         .stream()
         .collect(Collectors.toList()));
   }
+
+  @GetMapping("search/findAllJobsByCreator")
+  public ResponseEntity<List<JobOffer>> findAllJobsByCreator(
+      @RequestParam(required = true, name = "creator") UUID creatorId
+  ) {
+    return ResponseEntity.ok(this.jobOfferService.findAllJobsByCreator(creatorId)
+    .stream().collect(Collectors.toList()));
+  }
 }
