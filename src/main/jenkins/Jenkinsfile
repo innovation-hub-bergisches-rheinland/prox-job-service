@@ -21,7 +21,7 @@ node {
         image = pom.getArtifactId()
     }
 
-    if (env.BRANCH_NAME == 'master') {
+    if (env.BRANCH_NAME == 'main') {
         currentBuild.result = 'ABORTED'
         error('Stopping Build as prod deployment is disabled for now')
     }
