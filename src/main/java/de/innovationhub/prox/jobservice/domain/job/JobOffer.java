@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.domain.job;
 
+
 import de.innovationhub.prox.jobservice.domain.core.AbstractEntity;
 import de.innovationhub.prox.jobservice.domain.core.Creator;
 import java.time.Instant;

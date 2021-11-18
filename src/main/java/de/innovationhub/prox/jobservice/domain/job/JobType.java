@@ -1,8 +1,5 @@
 package de.innovationhub.prox.jobservice.domain.job;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-
 public enum JobType {
   FULL_TIME("Vollzeit"),
   PART_TIME("Teilzeit"),

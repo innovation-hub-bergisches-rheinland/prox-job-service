@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.domain.core;
 
+
 import java.util.UUID;
 import javax.persistence.Embeddable;
 import lombok.AccessLevel;

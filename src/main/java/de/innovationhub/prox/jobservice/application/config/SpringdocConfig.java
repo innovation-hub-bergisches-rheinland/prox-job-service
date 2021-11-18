@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.application.config;
 
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -41,8 +42,7 @@ public class SpringdocConfig {
             new Info()
                 .title("PROX Job Service")
                 .version("0.1.0")
-                .description(
-                    "This Service is part of [PROX](https://prox.innovation-hub.de/)"))
+                .description("This Service is part of [PROX](https://prox.innovation-hub.de/)"))
         .components(
             new Components()
                 .addSecuritySchemes(
@@ -60,4 +60,3 @@ public class SpringdocConfig {
                             "https://login.archi-lab.io/auth/realms/archilab/.well-known/openid-configuration")));
   }
 }
-

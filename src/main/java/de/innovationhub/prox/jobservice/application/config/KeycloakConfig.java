@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.application.config;
 
+
 import de.innovationhub.prox.jobservice.application.security.CreatorPermissionEvaluator;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;

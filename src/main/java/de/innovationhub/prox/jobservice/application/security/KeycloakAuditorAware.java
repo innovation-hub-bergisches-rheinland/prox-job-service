@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.application.security;
 
+
 import de.innovationhub.prox.jobservice.domain.core.Creator;
 import de.innovationhub.prox.jobservice.domain.core.UserVariant;
 import java.util.Locale;
@@ -23,8 +24,8 @@ public class KeycloakAuditorAware implements AuditorAware<Creator> {
     var id = getIdFromSecurityContext();
     var variant = getVariantFromSecurityContext();
 
-    if(id.isPresent()) {
-      if(variant.isPresent()) {
+    if (id.isPresent()) {
+      if (variant.isPresent()) {
         return Optional.of(new Creator(id.get(), variant.get()));
       } else {
         return Optional.of(new Creator(id.get(), UserVariant.UNKNOWN));
@@ -49,15 +50,18 @@ public class KeycloakAuditorAware implements AuditorAware<Creator> {
         .map(SecurityContext::getAuthentication)
         .map(KeycloakAuthenticationToken.class::cast)
         .map(KeycloakAuthenticationToken::getAuthorities)
-        .map(authorities -> {
-          var roles = authorities.stream().map(a -> a.getAuthority().toLowerCase(Locale.ROOT).trim())
-              .collect(Collectors.toSet());
-          if(roles.contains("role_professor")) {
-            return UserVariant.PROFESSOR;
-          } else if(roles.contains("role_company-manager")) {
-            return UserVariant.COMPANY;
-          }
-          return UserVariant.UNKNOWN;
-        });
+        .map(
+            authorities -> {
+              var roles =
+                  authorities.stream()
+                      .map(a -> a.getAuthority().toLowerCase(Locale.ROOT).trim())
+                      .collect(Collectors.toSet());
+              if (roles.contains("role_professor")) {
+                return UserVariant.PROFESSOR;
+              } else if (roles.contains("role_company-manager")) {
+                return UserVariant.COMPANY;
+              }
+              return UserVariant.UNKNOWN;
+            });
   }
 }

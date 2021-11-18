@@ -1,9 +1,9 @@
 package de.innovationhub.prox.jobservice.application.service;
 
+
 import com.google.common.collect.Sets;
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
 import de.innovationhub.prox.jobservice.domain.job.JobOfferRepository;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -16,8 +16,7 @@ public class JobOfferService {
   private final JobOfferRepository jobOfferRepository;
 
   @Autowired
-  public JobOfferService(
-      JobOfferRepository jobOfferRepository) {
+  public JobOfferService(JobOfferRepository jobOfferRepository) {
     this.jobOfferRepository = jobOfferRepository;
   }
 
@@ -34,14 +33,16 @@ public class JobOfferService {
   }
 
   public Optional<JobOffer> update(UUID uuid, JobOffer jobOffer) {
-    return jobOfferRepository.findById(uuid)
-        .map(jobOffer1 -> {
-          jobOffer1.setAvailableTypes(jobOffer.getAvailableTypes());
-          jobOffer1.setDescription(jobOffer.getDescription());
-          jobOffer1.setTitle(jobOffer.getTitle());
-          jobOffer1.setEntryLevels(jobOffer.getEntryLevels());
-          return jobOfferRepository.save(jobOffer1);
-        });
+    return jobOfferRepository
+        .findById(uuid)
+        .map(
+            jobOffer1 -> {
+              jobOffer1.setAvailableTypes(jobOffer.getAvailableTypes());
+              jobOffer1.setDescription(jobOffer.getDescription());
+              jobOffer1.setTitle(jobOffer.getTitle());
+              jobOffer1.setEntryLevels(jobOffer.getEntryLevels());
+              return jobOfferRepository.save(jobOffer1);
+            });
   }
 
   public void deleteById(UUID id) {
@@ -52,7 +53,5 @@ public class JobOfferService {
     this.deleteById(jobOffer.getId());
   }
 
-  private void authorize(JobOffer jobOffer) {
-
-  }
+  private void authorize(JobOffer jobOffer) {}
 }

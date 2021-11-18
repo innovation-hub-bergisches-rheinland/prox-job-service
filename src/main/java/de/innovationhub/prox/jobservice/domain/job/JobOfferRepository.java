@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.domain.job;
 
+
 import de.innovationhub.prox.jobservice.domain.core.Creator;
 import java.util.Optional;
 import java.util.Set;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface JobOfferRepository extends CrudRepository<JobOffer, UUID> {
-
 
   Set<JobOffer> findByAvailableTypesIn(JobType[] types);
 

@@ -1,5 +1,6 @@
 package de.innovationhub.prox.jobservice.application.controller;
 
+
 import de.innovationhub.prox.jobservice.application.service.JobOfferService;
 import de.innovationhub.prox.jobservice.domain.job.JobOffer;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,8 +28,7 @@ public class JobOfferController {
   private final JobOfferService jobOfferService;
 
   @Autowired
-  public JobOfferController(
-      JobOfferService jobOfferService) {
+  public JobOfferController(JobOfferService jobOfferService) {
     this.jobOfferService = jobOfferService;
   }
 
@@ -39,7 +39,8 @@ public class JobOfferController {
 
   @GetMapping("{id}")
   public ResponseEntity<JobOffer> getById(@PathVariable UUID id) {
-    return jobOfferService.findById(id)
+    return jobOfferService
+        .findById(id)
         .map(jobOffer -> ResponseEntity.ok(jobOffer))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
@@ -51,15 +52,21 @@ public class JobOfferController {
   }
 
   @PutMapping("{id}")
-  @Operation(summary = "edit an existing job offer", security = @SecurityRequirement(name = "Bearer"))
-  public ResponseEntity<JobOffer> update(@PathVariable UUID id, @Valid @RequestBody JobOffer jobOffer) {
-    return this.jobOfferService.update(id, jobOffer)
+  @Operation(
+      summary = "edit an existing job offer",
+      security = @SecurityRequirement(name = "Bearer"))
+  public ResponseEntity<JobOffer> update(
+      @PathVariable UUID id, @Valid @RequestBody JobOffer jobOffer) {
+    return this.jobOfferService
+        .update(id, jobOffer)
         .map(jobOffer1 -> ResponseEntity.ok(jobOffer1))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 
   @DeleteMapping("{id}")
-  @Operation(summary = "delete an existing job offer", security = @SecurityRequirement(name = "Bearer"))
+  @Operation(
+      summary = "delete an existing job offer",
+      security = @SecurityRequirement(name = "Bearer"))
   public void delete(@PathVariable UUID id) {
     this.jobOfferService.deleteById(id);
   }
