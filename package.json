@@ -1,0 +1,13 @@
+{
+  "name": "prox-job-service",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "lint-staged"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.0.2"
+  }
+}
