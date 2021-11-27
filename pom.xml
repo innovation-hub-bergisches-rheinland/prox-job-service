@@ -6,9 +6,10 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.6.0</version>
   </parent>
+
   <groupId>de.innovationhub.prox</groupId>
   <artifactId>prox-job-service</artifactId>
-  <version>${revision}${changelist}</version>
+  <version>0.1.0-SNAPSHOT</version>
 
   <name>prox-job-service</name>
 
@@ -20,12 +21,11 @@
   </scm>
   
   <properties>
-    <changelist>-SNAPSHOT</changelist>
-    <revision>0.1.0</revision>
     <java.version>17</java.version>
     <docker.image.prefix>quay.io/innovation-hub-bergisches-rheinland</docker.image.prefix>
     <frontend-maven-plugin.nodeVersion>v16.13.0</frontend-maven-plugin.nodeVersion>
     <frontend-maven-plugin.version>1.12.0</frontend-maven-plugin.version>
+    <maven-toolchains-plugin.version>3.0.0</maven-toolchains-plugin.version>
     <spring-cloud.version>2020.0.4</spring-cloud.version>
     <spotless.version>2.17.4</spotless.version>
     <keycloak.version>11.0.3</keycloak.version>
