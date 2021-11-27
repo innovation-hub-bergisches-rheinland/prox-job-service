@@ -9,7 +9,16 @@
   <groupId>de.innovationhub.prox</groupId>
   <artifactId>prox-job-service</artifactId>
   <version>${revision}${changelist}</version>
+
   <name>prox-job-service</name>
+
+  <scm>
+    <!-- Probably it would be better to use SSH here, but that's out of scope for now -->
+    <developerConnection>scm:git:https://github.com/innovation-hub-bergisches-rheinland/prox-job-service.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://github.com/innovation-hub-bergisches-rheinland/prox-job-service</url>
+  </scm>
+  
   <properties>
     <changelist>-SNAPSHOT</changelist>
     <revision>0.1.0</revision>
