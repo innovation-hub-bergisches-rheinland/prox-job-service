@@ -28,7 +28,7 @@
     <maven-toolchains-plugin.version>3.0.0</maven-toolchains-plugin.version>
     <spring-cloud.version>2020.0.4</spring-cloud.version>
     <spotless.version>2.17.4</spotless.version>
-    <keycloak.version>11.0.3</keycloak.version>
+    <keycloak.version>15.0.2</keycloak.version>
     <testcontainers.version>1.15.3</testcontainers.version>
   </properties>
 
