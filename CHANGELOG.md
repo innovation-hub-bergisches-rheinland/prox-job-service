@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.0.0](https://github.com/innovation-hub-bergisches-rheinland/prox-job-service/compare/v0.2.0...v1.0.0) (2021-12-11)
 
-
 ### Bug Fixes
 
-* adjust keycloak version and settings ([02fc904](https://github.com/innovation-hub-bergisches-rheinland/prox-job-service/commit/02fc904bc52dc1067e0bb85e0d39fdbedf92fe78))
+- adjust keycloak version and settings ([02fc904](https://github.com/innovation-hub-bergisches-rheinland/prox-job-service/commit/02fc904bc52dc1067e0bb85e0d39fdbedf92fe78))
