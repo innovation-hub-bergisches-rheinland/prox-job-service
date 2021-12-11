@@ -19,7 +19,7 @@
     <tag>HEAD</tag>
     <url>https://github.com/innovation-hub-bergisches-rheinland/prox-job-service</url>
   </scm>
-  
+
   <properties>
     <java.version>17</java.version>
     <docker.image.prefix>quay.io/innovation-hub-bergisches-rheinland</docker.image.prefix>
@@ -165,10 +165,10 @@
         </configuration>
         <executions>
           <execution>
-            <phase>package</phase>
             <goals>
               <goal>dockerBuild</goal>
             </goals>
+            <phase>package</phase>
           </execution>
         </executions>
       </plugin>
@@ -248,11 +248,11 @@
                 <googleJavaFormat>
                   <version>1.13.0</version>
                 </googleJavaFormat>
-                <importOrder />
-                <removeUnusedImports />
+                <importOrder></importOrder>
+                <removeUnusedImports></removeUnusedImports>
               </java>
               <pom>
-                <sortPom />
+                <sortPom></sortPom>
               </pom>
               <formats>
                 <format>
@@ -294,10 +294,10 @@
             <version>3.1.4</version>
             <executions>
               <execution>
-                <phase>deploy</phase>
                 <goals>
                   <goal>build</goal>
                 </goals>
+                <phase>deploy</phase>
               </execution>
             </executions>
           </plugin>
