@@ -9,7 +9,7 @@
 
   <groupId>de.innovationhub.prox</groupId>
   <artifactId>prox-job-service</artifactId>
-  <version>0.2.1-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>prox-job-service</name>
 
