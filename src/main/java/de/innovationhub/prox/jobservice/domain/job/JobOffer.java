@@ -1,6 +1,6 @@
 package de.innovationhub.prox.jobservice.domain.job;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.innovationhub.prox.jobservice.domain.core.AbstractEntity;
 import de.innovationhub.prox.jobservice.domain.core.Creator;
 import java.time.Instant;
@@ -15,6 +15,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -50,14 +52,14 @@ public class JobOffer extends AbstractEntity {
   private String description;
 
   // Type of Employment
-  @ElementCollection(fetch = FetchType.EAGER)
-  @Enumerated
-  private Set<JobType> availableTypes = new HashSet<>();
+  @ManyToMany
+  @JsonIgnore
+  private Set<JobOfferType> availableTypes = new HashSet<>();
 
   // Entry Levels
-  @ElementCollection(fetch = FetchType.EAGER)
-  @Enumerated
-  private Set<JobEntryLevel> entryLevels = new HashSet<>();
+  @ManyToMany
+  @JsonIgnore
+  private Set<JobOfferEntryLevel> entryLevels = new HashSet<>();
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date earliestStartOfEmployment;

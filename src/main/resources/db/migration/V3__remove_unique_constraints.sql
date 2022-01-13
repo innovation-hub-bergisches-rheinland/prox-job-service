@@ -1,0 +1,2 @@
+alter table job_offer_available_types drop constraint UK_c4ixoj0lg9xgjso43kxe1gmqj;
+alter table job_offer_entry_levels drop constraint UK_r65wuh80xuuxnbn68jl23hkwe;
