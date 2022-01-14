@@ -68,13 +68,15 @@ public class JobOfferService {
 
   public Set<JobOfferType> setJobOfferTypes(JobOffer jobOffer, UUID[] uuids) {
     var types = this.jobOfferTypeRepository.findAllByIdIn(uuids);
-    jobOffer.setAvailableTypes(StreamSupport.stream(types.spliterator(), false).collect(Collectors.toSet()));
+    jobOffer.setAvailableTypes(
+        StreamSupport.stream(types.spliterator(), false).collect(Collectors.toSet()));
     return this.save(jobOffer).getAvailableTypes();
   }
 
   public Set<JobOfferEntryLevel> setJobOfferEntryLevels(JobOffer jobOffer, UUID[] uuids) {
     var types = this.jobOfferEntryLevelRepository.findAllByIdIn(uuids);
-    jobOffer.setEntryLevels(StreamSupport.stream(types.spliterator(), false).collect(Collectors.toSet()));
+    jobOffer.setEntryLevels(
+        StreamSupport.stream(types.spliterator(), false).collect(Collectors.toSet()));
     return this.save(jobOffer).getEntryLevels();
   }
 
@@ -95,25 +97,32 @@ public class JobOfferService {
   public Set<JobOffer> searchJobOffers(String search, EntryLevel[] entryLevels, Type[] types) {
     var jobOffers = StreamSupport.stream(this.jobOfferRepository.findAll().spliterator(), false);
 
-    if(entryLevels.length > 0) {
-      jobOffers = jobOffers.filter(
-          jobOffer -> jobOffer.getEntryLevels()
-              .stream()
-              .anyMatch(p1 ->
-                  Arrays.stream(entryLevels).anyMatch(p2 -> p2.equals(p1.getEntryLevel()))));
+    if (entryLevels.length > 0) {
+      jobOffers =
+          jobOffers.filter(
+              jobOffer ->
+                  jobOffer.getEntryLevels().stream()
+                      .anyMatch(
+                          p1 ->
+                              Arrays.stream(entryLevels)
+                                  .anyMatch(p2 -> p2.equals(p1.getEntryLevel()))));
     }
 
-    if(types.length > 0) {
-      jobOffers = jobOffers.filter(
-          jobOffer -> jobOffer.getAvailableTypes()
-              .stream()
-              .anyMatch(p1 ->
-                  Arrays.stream(types).anyMatch(p2 -> p2.equals(p1.getType()))));
+    if (types.length > 0) {
+      jobOffers =
+          jobOffers.filter(
+              jobOffer ->
+                  jobOffer.getAvailableTypes().stream()
+                      .anyMatch(
+                          p1 -> Arrays.stream(types).anyMatch(p2 -> p2.equals(p1.getType()))));
     }
 
-    if(search.length() > 0) {
-      jobOffers = jobOffers.filter(
-          jobOffer -> jobOffer.getTitle().toLowerCase().contains(search.toLowerCase()) || jobOffer.getDescription().toLowerCase().contains(search.toLowerCase()));
+    if (search.length() > 0) {
+      jobOffers =
+          jobOffers.filter(
+              jobOffer ->
+                  jobOffer.getTitle().toLowerCase().contains(search.toLowerCase())
+                      || jobOffer.getDescription().toLowerCase().contains(search.toLowerCase()));
     }
     return jobOffers.collect(Collectors.toSet());
   }

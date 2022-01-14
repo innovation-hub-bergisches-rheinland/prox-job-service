@@ -54,31 +54,48 @@ public class JobOfferController {
 
   @GetMapping("{id}/entryLevels")
   public ResponseEntity<List<JobOfferEntryLevel>> getEntryLevels(@PathVariable UUID id) {
-    return jobOfferService.findById(id)
-        .map(jobOffer -> ResponseEntity.ok(jobOffer.getEntryLevels().stream().collect(Collectors.toList())))
+    return jobOfferService
+        .findById(id)
+        .map(
+            jobOffer ->
+                ResponseEntity.ok(jobOffer.getEntryLevels().stream().collect(Collectors.toList())))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 
   @PutMapping("{id}/entryLevels")
-  public ResponseEntity<List<JobOfferEntryLevel>> setEntryLevels(@PathVariable UUID id, @RequestBody UUID[] uuids) {
-    return jobOfferService.findById(id)
-        .map(jobOffer -> ResponseEntity.ok(this.jobOfferService.setJobOfferEntryLevels(jobOffer, uuids).stream().collect(
-            Collectors.toList())))
+  public ResponseEntity<List<JobOfferEntryLevel>> setEntryLevels(
+      @PathVariable UUID id, @RequestBody UUID[] uuids) {
+    return jobOfferService
+        .findById(id)
+        .map(
+            jobOffer ->
+                ResponseEntity.ok(
+                    this.jobOfferService.setJobOfferEntryLevels(jobOffer, uuids).stream()
+                        .collect(Collectors.toList())))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 
   @GetMapping("{id}/types")
   public ResponseEntity<List<JobOfferType>> getTypes(@PathVariable UUID id) {
-    return jobOfferService.findById(id)
-        .map(jobOffer -> ResponseEntity.ok(jobOffer.getAvailableTypes().stream().collect(Collectors.toList())))
+    return jobOfferService
+        .findById(id)
+        .map(
+            jobOffer ->
+                ResponseEntity.ok(
+                    jobOffer.getAvailableTypes().stream().collect(Collectors.toList())))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 
   @PutMapping("{id}/types")
-  public ResponseEntity<List<JobOfferType>> setTypes(@PathVariable UUID id, @RequestBody UUID[] uuids) {
-    return jobOfferService.findById(id)
-        .map(jobOffer -> ResponseEntity.ok(this.jobOfferService.setJobOfferTypes(jobOffer, uuids).stream().collect(
-            Collectors.toList())))
+  public ResponseEntity<List<JobOfferType>> setTypes(
+      @PathVariable UUID id, @RequestBody UUID[] uuids) {
+    return jobOfferService
+        .findById(id)
+        .map(
+            jobOffer ->
+                ResponseEntity.ok(
+                    this.jobOfferService.setJobOfferTypes(jobOffer, uuids).stream()
+                        .collect(Collectors.toList())))
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
   }
 
@@ -105,7 +122,7 @@ public class JobOfferController {
       summary = "delete an existing job offer",
       security = @SecurityRequirement(name = "Bearer"))
   public void delete(@PathVariable UUID id) {
-    if(this.jobOfferService.jobOfferExistsById(id)) {
+    if (this.jobOfferService.jobOfferExistsById(id)) {
       this.jobOfferService.deleteById(id);
     } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -117,16 +134,15 @@ public class JobOfferController {
       @RequestParam(defaultValue = "") String search,
       @RequestParam(defaultValue = "") EntryLevel[] entryLevels,
       @RequestParam(defaultValue = "") Type[] types) {
-    return ResponseEntity.ok(this.jobOfferService.searchJobOffers(search, entryLevels, types)
-        .stream()
-        .collect(Collectors.toList()));
+    return ResponseEntity.ok(
+        this.jobOfferService.searchJobOffers(search, entryLevels, types).stream()
+            .collect(Collectors.toList()));
   }
 
   @GetMapping("search/findAllJobsByCreator")
   public ResponseEntity<List<JobOffer>> findAllJobsByCreator(
-      @RequestParam(required = true, name = "creator") UUID creatorId
-  ) {
-    return ResponseEntity.ok(this.jobOfferService.findAllJobsByCreator(creatorId)
-    .stream().collect(Collectors.toList()));
+      @RequestParam(required = true, name = "creator") UUID creatorId) {
+    return ResponseEntity.ok(
+        this.jobOfferService.findAllJobsByCreator(creatorId).stream().collect(Collectors.toList()));
   }
 }
